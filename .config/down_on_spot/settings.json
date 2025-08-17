@@ -1,0 +1,17 @@
+{
+  "access_token": "BQDZRx6rxrlKy_SXjdcQx4OJklUuNcYI2DWPXZP4JATh175p2549b4ziap3Gqilno5VcHqTe3zf1pySY7QEvpUywroT_F0GSoA1afjSK5178LtPJuHsU3Jwt_Hs0PiAj0k6cLlHsQ_4",
+  "client_id": "f4fd27809ad14c749dedda6c287035e6",
+  "client_secret": "62eb1132b2ba450fbad7522f35718992",
+  "refresh_ui_seconds": 1,
+  "downloader": {
+    "concurrent_downloads": 4,
+    "quality": "Q320",
+    "path": "downloads",
+    "filename_template": "%artist% - %title%",
+    "id3v24": true,
+    "convert_to_mp3": false,
+    "separator": ", ",
+    "skip_existing": true
+  },
+  "market_country_code": null
+}

@@ -1,0 +1,2 @@
+MAILTO=""
+*/1 * * * * /bin/countcommit.sh
