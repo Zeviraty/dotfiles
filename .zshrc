@@ -139,7 +139,7 @@ alias gg="gh gist"
 alias ansi="gg https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797"
 
 # alias
-alias cls="clear && cat \$(find ~/ascii -type f | shuf -n 1) && ls"
+alias cls="clear && cat \$(find -L ~/ascii -type f | shuf -n 1) && ls"
 #alias python="python3"
 alias ppi="python3 ~/python/ppi/main.py"
 alias ppd="python3 ~/python/ppi/docker.py"
