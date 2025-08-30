@@ -1,11 +1,11 @@
 {
   "version": "1.0",
-  "last_updated": "2025-08-20T08:18:32.555549",
+  "last_updated": "2025-08-20T11:26:03.736715",
   "media_index": {
     "anilist_513": {
       "media_id": 513,
       "media_api": "anilist",
-      "status": "repeating",
+      "status": "planning",
       "progress": "1",
       "last_watch_position": "00:00:29",
       "last_watched": "2025-08-20T08:18:32.555156",
@@ -21,7 +21,7 @@
     }
   },
   "status_breakdown": {
-    "repeating": 1
+    "planning": 1
   },
   "media_count_breakdown": {
     "anilist": 1

@@ -130,13 +130,15 @@ alias gp='git push'
 alias gr='git reset'
 alias gs='git status --short'
 alias gu='git pull'
+alias gfb='gco $(gb | fzf)'
 
 # GH cli
 alias gvi="gh issue view \$(gh issue list | fzf | grep -o '^[0-9]\+')" # View issue
 alias gg="gh gist"
+alias gv="gg view"
 
 # Gists
-alias ansi="gg https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797"
+alias ansi="gv https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797"
 
 # alias
 alias cls="clear && cat \$(find -L ~/ascii -type f | shuf -n 1) && ls"
@@ -180,8 +182,24 @@ function y() {
 }
 
 function winpy() {
-    cp "$1" /mnt/c/Users/HP/wsl/ && cmd.exe /C python "../Users/HP/wsl/$1"
+    cp *.py /mnt/c/Users/HP/wsl/ && cmd.exe /C python "../Users/HP/wsl/$1"
 }
+
+function pyman() {
+    local str=$1
+    local head=${str%.*}
+    local tail=${str##*.}
+
+    python3 <<EOF | less -R
+try:
+    from $head import $tail
+except ImportError:
+    print("Library not found!")
+else:
+    help($tail)
+EOF
+}
+
 
 rid() { dir=$1; shift; cd "$dir" || return; "$@"; cd - > /dev/null || return; }
 
