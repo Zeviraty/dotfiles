@@ -187,10 +187,12 @@ function winpy() {
 
 function pyman() {
     local str=$1
-    local head=${str%.*}
-    local tail=${str##*.}
+    local head tail
 
-    python3 <<EOF | less -R
+    if [[ "$str" == *.* ]]; then
+        head=${str%.*}
+        tail=${str##*.}
+        python3 <<EOF 2> /dev/null | less
 try:
     from $head import $tail
 except ImportError:
@@ -198,8 +200,65 @@ except ImportError:
 else:
     help($tail)
 EOF
+    else
+    	echo "help(\"$str\")" | python3 2> /dev/null | less
+    fi
 }
 
+function rfc() {
+  local url="https://www.rfc-editor.org/rfc/rfc$1.txt"
+  local code
+
+  code=$(curl -s -o /dev/null -w "%{http_code}" "$url")
+
+  if [[ "$code" == "200" ]]; then
+    curl -s "$url" | less
+  else
+    echo "RFC: $1 not found"
+  fi
+}
+
+function fzrfc() {
+    local index=$(curl -s "https://www.rfc-editor.org/rfc-index.txt")
+    local chosen=$(awk '
+/^[0-9]{4}/ {
+  if (out != "") {
+    print out
+  }
+  out = $0
+  next
+}
+NF {
+  sub(/^[ \t]+/, "", $0)
+  out = out " " $0
+  next
+}
+!NF {
+  if (out != "") {
+    print out
+    out = ""
+  }
+  next
+}
+END {
+  if (out != "") print out
+}
+' <<< "$index" | sed -e '1,20d' | fzf | cut -c1-5)
+    rfc $(echo $chosen | awk '{$1=$1};1')
+}
+
+function pep() {
+  local url="https://raw.githubusercontent.com/python/peps/refs/heads/main/peps/pep-$1.rst"
+  local code
+
+  code=$(curl -s -o /dev/null -w "%{http_code}" "$url")
+
+  if [[ "$code" == "200" ]]; then
+    curl -s "$url" | less
+  else
+    echo "PEP not found"
+  fi
+}
 
 rid() { dir=$1; shift; cd "$dir" || return; "$@"; cd - > /dev/null || return; }
 
