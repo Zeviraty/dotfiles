@@ -1,0 +1,26 @@
+{
+  "default_username": "",
+  "display": {
+    "head_size": 8,
+    "layout_height": 48,
+    "upscale_factor": 4,
+    "show_head_only": true,
+    "image_backend": "chafa"
+  },
+  "layout": {
+    "spacing": 5,
+    "cape_spacing": 2,
+    "capes_per_row": 0,
+    "username_row_height": 14,
+    "cape_start_offset": 2,
+    "available_cape_width": 200
+  },
+  "cache": {
+    "cache_ttl_hours": 24,
+    "cache_dir": "cache"
+  },
+  "network": {
+    "timeout_seconds": 15,
+    "user_agent": "Mozilla/5.0 (capes-cli)"
+  }
+}

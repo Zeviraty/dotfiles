@@ -38,6 +38,12 @@ function M.setup()
     diagnostics = {
       enable = true,
       show_on_dirs = true,
+      icons = {
+        hint = "?",
+        info = "I",
+        warning = "!",
+        error = "X",
+      },
     },
     actions = {
       change_dir = {
@@ -46,6 +52,7 @@ function M.setup()
       },
       open_file = {
         resize_window = true,
+	quit_on_open = true,
         window_picker = {
           chars = "aoeui",
         },

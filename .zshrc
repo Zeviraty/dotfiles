@@ -106,6 +106,7 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin:/home/zev/.local/bin:/home/zev/bin
 export PATH="$HOME/opt/cross/bin:$PATH"
 alias n="nvim"
 alias n.="nvim ."
+alias leet="nvim leetcode.nvim"
 
 # git
 alias ga='git add'
@@ -138,7 +139,7 @@ alias gg="gh gist"
 alias gv="gg view"
 
 # Gists
-alias ansi="gv https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797"
+alias ansi="gv https://gist.github.com/ConnerWill/d4b6c776b509add763e17f9f113fd25b"
 
 # alias
 alias cls="clear && cat \$(find -L ~/ascii -type f | shuf -n 1) && ls"
@@ -186,23 +187,7 @@ function winpy() {
 }
 
 function pyman() {
-    local str=$1
-    local head tail
-
-    if [[ "$str" == *.* ]]; then
-        head=${str%.*}
-        tail=${str##*.}
-        python3 <<EOF 2> /dev/null | less
-try:
-    from $head import $tail
-except ImportError:
-    print("Library not found!")
-else:
-    help($tail)
-EOF
-    else
-    	echo "help(\"$str\")" | python3 2> /dev/null | less
-    fi
+    echo "help(\"$1\")" | python3 2> /dev/null | less
 }
 
 function rfc() {
@@ -260,6 +245,8 @@ function pep() {
   fi
 }
 
+pi() { pip install $@ --break-system-packages; }
+
 rid() { dir=$1; shift; cd "$dir" || return; "$@"; cd - > /dev/null || return; }
 
 zle -N zle-keymap-select
@@ -268,7 +255,6 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 bindkey -a '^?' backward-delete-char
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(zoxide init zsh)"
 source /usr/share/doc/fzf/examples/completion.zsh
 source /usr/share/doc/fzf/examples/key-bindings.zsh

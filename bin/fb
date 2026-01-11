@@ -1,0 +1,29 @@
+#!/usr/bin/zsh
+
+file_chooser() {
+        fifo=$(mktemp -u)
+        mkfifo "$fifo"
+
+        tmux split-window -hb -p 20 \
+          "ls -a --color=always | fzf --ansi > $fifo; tmux kill-pane"
+
+        if ! read choice < "$fifo" || [[ -z $choice ]]; then
+                rm "$fifo"
+                return 1
+        fi
+
+        rm "$fifo"
+}
+
+fb() {
+        file_chooser || return 0
+
+        if [[ -d $choice ]]; then
+                cd "$choice" || return
+                exec "$0"   # recurse
+        elif [[ -f $choice ]]; then
+                nvim "$choice"
+        fi
+}
+
+fb
