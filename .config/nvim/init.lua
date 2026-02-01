@@ -119,3 +119,24 @@ function _G.FoldText()
   local padding = string.rep(" ", target_width - vim.fn.strdisplaywidth(line))
   return "> " .. line .. padding .. suffix
 end
+
+vim.api.nvim_set_keymap('n', '<leader>xf', '', {
+  noremap = true,
+  callback = function()
+    for _, client in ipairs(vim.lsp.buf_get_clients()) do
+      require("workspace-diagnostics").populate_workspace_diagnostics(client, 0)
+    end
+  end
+})
+
+vim.g.doge_doc_standard_python = 'numpy'
+vim.g.doge_enable_mappings = 0
+vim.keymap.set('n', '<Leader>s', '<Plug>(doge-generate)')
+
+vim.g.doge_python_settings = {
+  single_quotes = 1,
+  omit_redundant_param_types = 0,
+}
+
+vim.opt.cmdheight = 0
+vim.opt.shortmess:append("sI")
