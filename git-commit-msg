@@ -1,0 +1,25 @@
+# <type>(<scope>): <summary>
+#
+# Types:
+#   feat     – new behavior or capability
+#   fix      – bug fix
+#   refactor – code change that doesn’t add features or fix bugs
+#   docs     – documentation or docstrings only
+#   test     – tests only
+#   build    – makefile, docker, CI, packaging
+#   chore    – cleanup, formatting, meta changes
+#
+# Scope (folder), examples from tome:
+#   world, client, db, logging, config, cli, tests, make, docker, docs
+#
+# Rules:
+#   - Use imperative mood ("add", not "added")
+#   - Keep the summary under 72 characters
+#   - No trailing period
+#
+# Example:
+#   fix(world/map): handle empty room list
+#
+# Optional body:
+#   - Explain intent or reasoning
+#   - Mention side effects or follow-ups
