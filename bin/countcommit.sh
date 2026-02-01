@@ -11,6 +11,7 @@ count=0
 while IFS= read -r gitdir; do
     repo=$(dirname "$gitdir")
     cd "$repo" || continue
+    echo "$repo"
     c=$(git log --author="zeviraty" --since="$today 00:00" --until="$today 23:59" --pretty=tformat:"%h" 2>/dev/null | wc -l)
     count=$((count + c))
 done < <(find "$BASE_DIR" -type d -name ".git" 2>/dev/null)
