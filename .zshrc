@@ -23,6 +23,7 @@ source $ZSH/oh-my-zsh.sh
 # Neovim
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin:/home/zev/.local/bin:/home/zev/bin:/mnt/c/windows/System32/"
 export PATH="$HOME/opt/cross/bin:$PATH"
+export EDITOR="nvim"
 alias n="nvim"
 alias n.="nvim ."
 alias leet="nvim leetcode.nvim"
@@ -62,6 +63,7 @@ alias ansi="gv https://gist.github.com/ConnerWill/d4b6c776b509add763e17f9f113fd2
 
 # alias
 alias cls="clear && cat \$(find -L ~/ascii -type f | shuf -n 1) && ls"
+alias bat="batcat"
 #alias python="python3"
 alias ppi="python3 ~/python/ppi/main.py"
 alias ppd="python3 ~/python/ppi/docker.py"
@@ -96,6 +98,10 @@ function zle-keymap-select {
 # Crude function to run python in windows
 function winpy() {
     cp *.py /mnt/c/Users/HP/wsl/ && cmd.exe /C python "../Users/HP/wsl/$1"
+}
+
+function nogil() {
+    PATH="/opt/python3-nogil/bin:$PATH" "$@"
 }
 
 # Python help function (basically pydoc but i made it before i knew that existed)
@@ -187,6 +193,12 @@ alias cd="z"
 
 # auto complete
 autoload -Uz compinit && compinit
+
+if [ -f "$HOME/.secrets" ]; then
+    source "$HOME/.secrets"
+fi
+
+. "$HOME/.cargo/env"
 
 # send notification
 notify-send() { wsl-notify-send.exe --category $WSL_DISTRO_NAME "${@}"; }

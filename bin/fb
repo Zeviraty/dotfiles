@@ -5,7 +5,7 @@ file_chooser() {
         mkfifo "$fifo"
 
         tmux split-window -hb -p 20 \
-          "ls -a --color=always | fzf --ansi > $fifo; tmux kill-pane"
+          "gum file -a --no-permissions --no-size --padding=\"1 0 0 0\" > $fifo; tmux kill-pane"
 
         if ! read choice < "$fifo" || [[ -z $choice ]]; then
                 rm "$fifo"

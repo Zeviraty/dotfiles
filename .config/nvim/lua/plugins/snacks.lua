@@ -10,7 +10,6 @@ return {
     picker = { enabled = true },
     notifier = { enabled = true },
     quickfile = { enabled = true },
-    scroll = { enabled = true },
     git = { enabled = true },
   },
   keys = {

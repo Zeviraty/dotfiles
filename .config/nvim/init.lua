@@ -47,6 +47,14 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 vim.api.nvim_create_autocmd("FileType", {
+  pattern = "sh",
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.expandtab = true
+  end,
+})
+vim.api.nvim_create_autocmd("FileType", {
   pattern = "v",
   callback = function()
     vim.opt_local.tabstop = 4
@@ -127,6 +135,63 @@ vim.api.nvim_set_keymap('n', '<leader>xf', '', {
       require("workspace-diagnostics").populate_workspace_diagnostics(client, 0)
     end
   end
+})
+
+local function rebase_commit_diff()
+  local git_dir = vim.fn.finddir(".git", ".;")
+  if git_dir == "" then return end
+  local rebase_path = git_dir .. "/rebase-merge"
+  if vim.fn.isdirectory(rebase_path) == 0 then return end
+
+  local commit_buf = vim.api.nvim_get_current_buf()
+  local commit_win = vim.api.nvim_get_current_win()
+
+  vim.cmd("vert new")
+  vim.cmd("read !git diff HEAD^")
+  vim.cmd("1delete") -- remove first empty line
+  local diff_buf = vim.api.nvim_get_current_buf()
+
+  vim.bo.buftype = "nofile"
+  vim.bo.bufhidden = "wipe"
+  vim.bo.swapfile = false
+  vim.bo.readonly = true
+  vim.bo.modifiable = false
+  vim.bo.filetype = "diff"
+
+  vim.cmd("normal! gg")
+  vim.fn.search("^@@", "W")
+
+  vim.api.nvim_create_autocmd("BufWinLeave", {
+    buffer = commit_buf,
+    once = true,
+    callback = function()
+      vim.schedule(function()
+        if vim.api.nvim_buf_is_valid(diff_buf) then
+          vim.cmd("wa")
+	  vim.cmd("qa!")
+        end
+      end)
+    end,
+  })
+
+  vim.api.nvim_set_current_win(commit_win)
+end
+
+vim.keymap.set("n", "<leader>rd", rebase_commit_diff, {
+  desc = "Diff current rebase commit",
+  silent = true,
+})
+
+vim.keymap.set("n", "<leader>rD", "<cmd>close<CR>", {
+  desc = "Close rebase diff",
+  silent = true,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "gitcommit",
+  callback = function()
+    vim.schedule(rebase_commit_diff)
+  end,
 })
 
 vim.g.doge_doc_standard_python = 'numpy'
