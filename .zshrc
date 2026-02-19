@@ -1,10 +1,3 @@
-# DISABLED FOR NOW
-#if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-#fi
-#
-#source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
-
 # Neovim
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin:/home/zev/.local/bin:/home/zev/bin:/mnt/c/windows/System32/"
 export PATH="$HOME/opt/cross/bin:$PATH"
@@ -208,7 +201,3 @@ notify-send() { wsl-notify-send.exe --category $WSL_DISTRO_NAME "${@}"; }
 # shell startup commands
 tmux
 cls
-
-# DISABLED
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-#[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
