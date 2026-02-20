@@ -1,7 +1,7 @@
 # Neovim
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin:/home/zev/.local/bin:/home/zev/bin:/mnt/c/windows/System32/"
 export PATH="$HOME/opt/cross/bin:$PATH"
-export EDITOR="nvim"
+export EDITOR="/opt/nvim-linux-x86_64/bin/nvim"
 alias n="nvim"
 alias n.="nvim ."
 alias leet="nvim leetcode.nvim"
