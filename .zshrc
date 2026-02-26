@@ -1,24 +1,9 @@
-# Path to your Oh My Zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
-# Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="false"
-
-zstyle ':omz:update' mode disabled  # disable automatic updates
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
+# DISABLED FOR NOW
+#if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+#fi
+#
+#source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 
 # Neovim
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin:/home/zev/.local/bin:/home/zev/bin:/mnt/c/windows/System32/"
@@ -29,6 +14,7 @@ alias n.="nvim ."
 alias leet="nvim leetcode.nvim"
 
 # git
+alias g='git'
 alias ga='git add'
 alias gad='ga .'
 alias gap='ga --patch'
@@ -53,6 +39,14 @@ alias gs='git status --short'
 alias gu='git pull'
 alias gfb='gco $(gb | fzf)'
 
+# ls
+alias l='ls -lah'
+alias la='ls -lAh'
+alias ll='ls -lh'
+alias ls='ls --color=tty'
+alias lsa='ls -lah'
+alias cls="clear && cat \$(find -L ~/ascii -type f | shuf -n 1) && ls"
+
 # GH cli
 alias gvi="gh issue view \$(gh issue list | fzf | grep -o '^[0-9]\+')" # View issue
 alias gg="gh gist"
@@ -62,7 +56,7 @@ alias gv="gg view"
 alias ansi="gv https://gist.github.com/ConnerWill/d4b6c776b509add763e17f9f113fd25b"
 
 # alias
-alias cls="clear && cat \$(find -L ~/ascii -type f | shuf -n 1) && ls"
+alias ccr="codecrafters"
 alias bat="batcat"
 #alias python="python3"
 alias ppi="python3 ~/python/ppi/main.py"
@@ -72,6 +66,14 @@ alias python3-tk='/usr/local/bin/python3.13'
 
 # Starship
 eval "$(starship init zsh)"
+
+# Compinit
+autoload -Uz compinit
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+    compinit
+else
+    compinit -C
+fi
 
 # Plugins
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -206,3 +208,7 @@ notify-send() { wsl-notify-send.exe --category $WSL_DISTRO_NAME "${@}"; }
 # shell startup commands
 tmux
 cls
+
+# DISABLED
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+#[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
