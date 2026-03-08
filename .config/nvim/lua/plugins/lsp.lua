@@ -20,5 +20,7 @@ return {
                 vim.lsp.enable('v_analyzer')
                 vim.lsp.config('pyright',coq.lsp_ensure_capabilities())
                 vim.lsp.enable('pyright')
+		vim.lsp.config('clangd',coq.lsp_ensure_capabilities())
+                vim.lsp.enable('clangd')
         end
 }
